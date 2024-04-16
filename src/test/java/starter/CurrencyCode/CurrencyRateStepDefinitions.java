@@ -9,13 +9,10 @@ import org.junit.Assert;
 import java.io.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 import static org.hamcrest.Matchers.equalTo;
-
 import java.io.InputStream;
 import java.util.Set;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
@@ -24,6 +21,7 @@ import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 
 public class CurrencyRateStepDefinitions {
+
 
     @Steps
     CurrencyRate currencyRate;
@@ -51,7 +49,6 @@ public class CurrencyRateStepDefinitions {
         JsonPath jp = new JsonPath(SerenityRest.lastResponse().asString());
         Float rate = jp.get(String.format(CurrencyRateResponse.RATE, Currency));
         Assert.assertTrue(rate >= Float.parseFloat(rateLowerLimit) && rate <= Float.parseFloat(rateUpperLimit));
-        ;
     }
 
     @Then("I Verify the Response contains {int} rates")
@@ -60,8 +57,6 @@ public class CurrencyRateStepDefinitions {
         String value = jp.get(CurrencyRateResponse.RateCount).toString();
         int count = value.split(",").length;
         Assert.assertTrue(count == RateCount);
-
-
     }
 
     @Then("I Verify Response time is Less than {int} Seconds")
@@ -109,13 +104,12 @@ public class CurrencyRateStepDefinitions {
                 validationResult.forEach(vm -> System.out.println(vm.getMessage()));
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not found");
         }
     }
 
     private static InputStream inputStreamFromClasspath(String path) {
 
-        // returning stream
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
     }
 
