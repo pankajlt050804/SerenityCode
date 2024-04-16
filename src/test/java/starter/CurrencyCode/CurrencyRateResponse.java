@@ -1,4 +1,4 @@
-package starter.CurrencyCode;
+package starter.currencyCode;
 
 public class CurrencyRateResponse {
     public static final String RATE = "'rates'.'%s'";
